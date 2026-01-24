@@ -56,7 +56,6 @@ A UML class diagram is provided showing:
 inheritance between **Media**, **Song**, and **Podcast**
 
 service-to-repository dependencies
-
 ---
 
 ## C. Database Description
@@ -82,3 +81,76 @@ VALUES ('Tuka Donka', 150, 'song');
 
 INSERT INTO playlist_media (playlist_id, media_id)
 VALUES (1, 1);
+```
+## D. Controller
+Summary of CRUD Operations (Example Requests / Responses)
+```
+**Create (Add media):**
+
+**Input: 1**
+
+**Enter media id to add: 8**
+
+**Output: Media added.**
+```
+```
+**Read (View playlist):**
+
+**PLAYLIST = "Make my day with fire"**
+
+**MEDIA:**
+
+**5 - "Tuka Donka" (song, 150 secs)**
+```
+```
+**Delete (Remove media):**
+
+**Input: 2**
+
+**Enter media id to delete: 8**
+
+**Output: Media removed.**
+```
+```
+Exit:
+
+Input: exit
+Output: Exit. No changes made.
+```
+## E. Instructions to Compile and Run
+```
+javac Main.java
+
+java Main
+```
+
+## F. Screenshots
+![Imagealt](https://github.com/AldairRonin/Assignment3/blob/main/docs/add_media.png?raw=true)
+
+![imagealt](https://github.com/AldairRonin/Assignment3/blob/main/docs/delete_media.png?raw=true)
+
+## G. Reflection Section
+
+***What I learned***
+
+ - How to design a layered Java application
+  
+-  How to use JDBC to interact with a relational database
+  
+-  How to implement many-to-many relationships
+
+***Challenges Faces***
+
+- Managing database IDs correctly
+
+- Handling user input safely
+
+- Ensuring clean separation between layers
+
+***Benefits of JDBC and Multi-Layer Design**
+
+- JDBC provides direct control over database operations
+
+- Multi-layer design improves maintainability and readability
+
+- The application is easier to extend and debug
