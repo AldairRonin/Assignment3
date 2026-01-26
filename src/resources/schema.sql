@@ -3,12 +3,12 @@ CREATE TABLE media {
     title VARCHAR(255) NOT NULL,
     duration INT NOT NULL CHECK (duration > 0),
     type VARCHAR(50) NOT NULL,
-}
+};
 
 CREATE TABLE playlists {
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-}
+};
 
 CREATE TABLE playlist_media (
     playlist_id INT REFERENCES playlist(id) ON DELETE CASCADE,
