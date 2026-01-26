@@ -129,6 +129,18 @@ java Main
 
 ![imagealt](https://github.com/AldairRonin/Assignment3/blob/main/docs/delete_media.png?raw=true)
 
+**Custom Exceptions
+
+The project defines a custom exception hierarchy located in the 'exception' package:
+
+-InvalidInputException
+
+-DuplicateResourceException
+
+-ResourceNotFoundException
+
+-DatabaseOperationException
+
 ## G. Reflection Section
 
 ***What I learned***
@@ -154,3 +166,4 @@ java Main
 - Multi-layer design improves maintainability and readability
 
 - The application is easier to extend and debug
+
