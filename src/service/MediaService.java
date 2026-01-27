@@ -16,7 +16,7 @@ public class MediaService {
         return mediaRepository.getAll();
     }
 
-    // ✅ ВОТ ЭТО НУЖНО
+    //проверка для исключение ошибки
     public boolean mediaExists(int mediaId) {
         return mediaRepository.existsById(mediaId);
     }
