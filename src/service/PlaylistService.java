@@ -32,4 +32,24 @@ public class PlaylistService {
     public String getPlaylistNameById(int playlistId) {
         return playlistRepository.getPlaylistNameById(playlistId);
     }
+    //создание нового плейлиста
+    public void addPlaylist(String name) {
+        playlistRepository.createPlaylist(name);
+    }
+
+    // получение общей длительности плейлиста
+    public int getTotalDuration(int playlistId) {
+    return getPlaylistMedia(playlistId).stream()
+            .mapToInt(Media::getDuration)
+            .sum();
+    }
+
+    // получение самого длинного media в плейлисте
+    public Media getLongestMedia(int playlistId) {
+        return getPlaylistMedia(playlistId).stream()
+                .max((m1, m2) -> Integer.compare(m1.getDuration(), m2.getDuration()))
+                .orElse(null);
+    }
+
+
 }

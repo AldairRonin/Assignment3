@@ -3,8 +3,11 @@ import exception.ResourceNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 import model.Media;
+import repository.JdbcMediaRepository;
 import service.MediaService;
 import service.PlaylistService;
+import utils.ReflectionUtils;
+
 
 public class Main {
 
@@ -17,16 +20,18 @@ public class Main {
             int playlistId = 2; // выбери нужный плейлист для теста
 
             PlaylistService playlistService = new PlaylistService();
-            MediaService mediaService = new MediaService();
+            MediaService mediaService = new MediaService(new JdbcMediaRepository());
 
             // проверка существования плейлиста
             String playlistName = playlistService.getPlaylistNameById(playlistId);
             if (playlistName == null) {
                 throw new ResourceNotFoundException("Playlist not found.");
+
             }
 
             System.out.println("PLAYLIST = \"" + playlistName + "\"");
             printPlaylistMedia(playlistService, playlistId);
+
 
             // меню управления
             System.out.println();
@@ -35,8 +40,10 @@ public class Main {
             System.out.println("2 - delete media");
             System.out.println("3 - exit");
 
+
             System.out.print("User choice: ");
             String choice = scanner.nextLine();
+
 
             // проверка выбора
             if (!choice.equals("1") && !choice.equals("2") && !choice.equals("3")) {
@@ -45,12 +52,14 @@ public class Main {
                 );
             }
 
+
             // выход
             if (choice.equals("3")) {
                 System.out.println("Exit. No changes made.");
                 return;
             }
 
+            
             // добавить медиа
             if (choice.equals("1")) {
 
@@ -124,6 +133,7 @@ public class Main {
 
                 playlistService.removeMedia(playlistId, mediaId);
                 System.out.println("Media removed.");
+
             }
 
             // обновлённый плейлист
@@ -131,13 +141,20 @@ public class Main {
             System.out.println("UPDATED PLAYLIST:");
             printPlaylistMedia(playlistService, playlistId);
 
+            Media media = playlistService.getLongestMedia(playlistId);
+
+            if (media != null) {
+                System.out.println();
+                System.out.println("REFLECTION INFO:");
+                ReflectionUtils.printClassInfo(media);
+            }
+
         } catch (InvalidInputException | ResourceNotFoundException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
 
-    // 
-
+        //
     private static int parseIdOrThrow(String input) {
         if (input == null || input.trim().isEmpty()) {
             throw new InvalidInputException("Input cannot be empty.");
@@ -148,18 +165,18 @@ public class Main {
         } catch (NumberFormatException e) {
             throw new InvalidInputException(
                     "Invalid input. Please enter a numeric id."
-            );
+            ); 
         }
     }
 
     private static void printPlaylistMedia(PlaylistService playlistService, int playlistId) {
 
-        List<Media> mediaList = playlistService.getPlaylistMedia(playlistId);
+        List<Media> mediaList = playlistService.getPlaylistMedia(playlistId); 
 
         if (mediaList.isEmpty()) {
             System.out.println("Playlist is empty.");
             return;
-        }
+        } 
 
         System.out.println("MEDIA:");
         for (Media media : mediaList) {
@@ -171,4 +188,7 @@ public class Main {
             );
         }
     }
+
+        
+  
 }

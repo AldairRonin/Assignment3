@@ -2,11 +2,15 @@ package service;
 
 import java.util.List;
 import model.Media;
-import repository.MediaRepository;
+import repository.interfaces.MediaRepository;
 
 public class MediaService {
 
-    private final MediaRepository mediaRepository = new MediaRepository();
+    private final MediaRepository mediaRepository;
+
+    public MediaService(MediaRepository mediaRepository) {
+        this.mediaRepository = mediaRepository;
+    }
 
     public void addMedia(Media media) {
         mediaRepository.create(media);
@@ -16,8 +20,7 @@ public class MediaService {
         return mediaRepository.getAll();
     }
 
-    //проверка для исключение ошибки
-    public boolean mediaExists(int mediaId) {
-        return mediaRepository.existsById(mediaId);
+    public boolean mediaExists(int id) {
+        return mediaRepository.existsById(id);
     }
 }

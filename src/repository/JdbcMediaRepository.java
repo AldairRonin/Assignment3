@@ -9,9 +9,10 @@ import java.util.List;
 import model.Media;
 import model.Podcast;
 import model.Song;
+import repository.interfaces.MediaRepository;
 import utils.DatabaseConnection;
 
-public class MediaRepository {
+public class JdbcMediaRepository implements MediaRepository {
 
     //  создание новой записи в таблице media
     public void create(Media media) {
@@ -108,5 +109,22 @@ public class MediaRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to check media existence", e);
         }
+
     }
+    // удаление media по id
+    @Override
+    public void delete(int id) {
+    String sql = "DELETE FROM media WHERE id = ?";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, id);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Failed to delete media", e);
+    }
+}
+
 }
